@@ -1,0 +1,33 @@
+<div class="container ">
+    <input type="file" (change)="onFileSelected($event)" accept=".xlsx, .xls" >
+    <button mat-raised-button   (click)="uploadFile()" >Upload </button>
+   
+    <div class="ser">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Search Column" [(ngModel)]="searchTerm" (input)="searchColumn()">
+    </mat-form-field>
+  </div>
+  <div class="tab">
+    <mat-table *ngIf="isUploaded" [dataSource]="dataSource">
+      <!-- Display "metricid" and "IsMandatory" columns -->
+      <ng-container *ngFor="let column of ['MetricId', 'IsMandatory']" [matColumnDef]="column">
+        <mat-header-cell *matHeaderCellDef> {{ column }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element[column] }} </mat-cell>
+      </ng-container>
+    
+      <!-- Define row -->
+      <mat-row *matRowDef="let row; columns: ['MetricId', 'IsMandatory']" (click)="selectRow(row)"></mat-row>
+    </mat-table>
+    
+    
+   
+  </div>
+  <div class="but"  >
+   
+    <button  (click)="updateTable()">Update</button>
+  </div>
+
+
+ 
+  </div>
+  
